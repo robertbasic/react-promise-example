@@ -6,20 +6,16 @@ class FetchStatusCodes extends Deferred
 {
     public function __invoke(array $urls)
     {
-        $this->notify('Initializing');
         $multiHandle = curl_multi_init();
 
         $handles = $this->getHandlesForUrls($urls, $multiHandle);
 
-        $this->notify('Executing multi handles');
         $this->executeMultiHandle($multiHandle);
 
-        $this->notify('Getting status codes');
         $statusCodes = $this->getStatusCodes($handles);
 
         curl_multi_close($multiHandle);
 
-        $this->notify('Calculating success rate');
         $successRate = $this->calculateSuccessRate($statusCodes);
 
         if ($successRate > 20) {

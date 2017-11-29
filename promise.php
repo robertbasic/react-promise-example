@@ -27,9 +27,6 @@ $secondPromise = $promise->then(
     },
     function($reason) {
         var_dump($reason);
-    },
-    function($progress) {
-        echo "Progress: " . $progress . PHP_EOL;
     }
 );
 
